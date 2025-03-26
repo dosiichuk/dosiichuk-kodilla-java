@@ -17,9 +17,9 @@ public class CalculatorTestSuite {
     void testCalculations() {
         //When
         //Then
-        assertEquals(calculator.add(2, 2), 4);
-        assertEquals(calculator.sub(2, 2), 0);
-        assertEquals(calculator.mul(2, 2), 4);
-        assertEquals(calculator.div(2, 2), 1);
+        assertEquals(4, calculator.add(2, 2));
+        assertEquals(0, calculator.sub(2, 2));
+        assertEquals(4, calculator.mul(2, 2));
+        assertEquals(1, calculator.div(2, 2));
     }
 }
