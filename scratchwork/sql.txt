@@ -1,0 +1,44 @@
+CREATE TABLE ISSUESLIST
+(
+    ID SERIAL PRIMARY KEY,
+    NAME VARCHAR(100) CHARSET utf8 NOT NULL
+);
+
+CREATE TABLE ISSUES
+(
+    ID SERIAL PRIMARY KEY,
+    ISSUESLIST_ID BIGINT UNSIGNED NOT NULL,
+    SUMMARY VARCHAR(1000) CHARSET utf8 NOT NULL,
+    DESCRIPTION VARCHAR(10000) CHARSET utf8 NOT NULL,
+    USERS_ID_ASSIGNEDTO BIGINT UNSIGNED,
+    FOREIGN KEY (ISSUESLIST_ID) REFERENCES ISSUESLIST(ID),
+    FOREIGN KEY (USERS_ID_ASSIGNEDTO) REFERENCES USERS(ID)
+);
+
+INSERT INTO ISSUESLIST (NAME)
+VALUES 
+    ('To Do'),
+    ('In Progress'),
+    ('Done');
+
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USERS_ID_ASSIGNEDTO) VALUES
+(1, 'Setup project repository', 'Create and configure the main repository for the project', 1),
+(1, 'Define requirements', 'Gather and document software requirements', 2),
+(1, 'Design database schema', 'Create an ERD and plan table structures', 1),
+(1, 'Setup CI/CD pipeline', 'Configure continuous integration and deployment', 1),
+(1, 'Write project README', 'Prepare the README file with project info', 1);
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USERS_ID_ASSIGNEDTO) VALUES
+(2, 'Implement user login', 'Develop and test login functionality', 2),
+(2, 'Create UI mockups', 'Design UI mockups for key application views', 3),
+(2, 'Build API endpoints', 'Develop RESTful APIs for the backend', 1),
+(2, 'Write unit tests', 'Implement unit tests for core modules', 1),
+(2, 'Integrate database', 'Connect backend to the database and test queries', 1);
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USERS_ID_ASSIGNEDTO) VALUES
+(3, 'Project kickoff meeting', 'Held the initial meeting with the full team', 2),
+(3, 'Initial project planning', 'Completed the high-level planning for MVP', 1),
+(3, 'Tool selection', 'Decided on tools and tech stack', 1),
+(3, 'Environment setup', 'Installed development tools and configured environments', 3),
+(3, 'Team onboarding', 'Onboarded all team members to the project and processes', 1);
