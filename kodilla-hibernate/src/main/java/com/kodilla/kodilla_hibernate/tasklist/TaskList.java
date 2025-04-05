@@ -1,7 +1,11 @@
 package com.kodilla.kodilla_hibernate.tasklist;
 
+import com.kodilla.kodilla_hibernate.task.Task;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "TASKLISTS")
@@ -9,6 +13,7 @@ public class TaskList {
     private int id;
     private String listName;
     private String description;
+    List<Task> taskList = new ArrayList<>();
 
 
     public TaskList() {
@@ -38,6 +43,12 @@ public class TaskList {
         return description;
     }
 
+    @OneToMany(targetEntity = Task.class, mappedBy = "taskList", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    public List<Task> getTasks() {
+        return taskList;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -48,5 +59,9 @@ public class TaskList {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setTasks(List<Task> taskList) {
+        this.taskList = taskList;
     }
 }
