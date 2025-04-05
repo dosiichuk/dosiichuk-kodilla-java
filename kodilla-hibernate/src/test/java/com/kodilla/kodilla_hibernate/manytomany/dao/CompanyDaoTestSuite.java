@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
@@ -13,6 +16,8 @@ public class CompanyDaoTestSuite {
 
     @Autowired
     private CompanyDao companyDao;
+    @Autowired
+    private EmployeeDao employeeDao;
 
     @Test
     void testSaveManyToMany() {
@@ -55,6 +60,58 @@ public class CompanyDaoTestSuite {
             companyDao.deleteById(softwareMachineId);
             companyDao.deleteById(dataMaestersId);
             companyDao.deleteById(greyMatterId);
+        } catch (Exception e) {
+            //do nothing
+        }
+
+    }
+
+    @Test
+    void testRetrieveEmployeesByLastname() {
+        //Given
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
+        Employee lindaSmith = new Employee("Linda", "Smith");
+
+        //When
+        employeeDao.save(johnSmith);
+        employeeDao.save(stephanieClarckson);
+        employeeDao.save(lindaSmith);
+        List<Employee> employeeList = employeeDao.retrieveEmployeesByLastname("Smith");
+        //Then
+        assertEquals(2, employeeList.size());
+
+        //CleanUp
+        try {
+            employeeDao.delete(johnSmith);
+            employeeDao.delete(stephanieClarckson);
+            employeeDao.delete(lindaSmith);
+        } catch (Exception e) {
+            //do nothing
+        }
+
+    }
+
+    @Test
+    void testRetrieveCompaniesByPrefix() {
+        //Given
+        Company company1 = new Company("Company1");
+        Company company2 = new Company("Abc");
+        Company company3 = new Company("Abchfodjfv");
+
+        //When
+        companyDao.save(company1);
+        companyDao.save(company2);
+        companyDao.save(company3);
+        List<Company> companiesRetrivedByPrefix = companyDao.retrieveCompaniesBynamePrefix("Abc");
+        //Then
+        assertEquals(2, companiesRetrivedByPrefix.size());
+
+        //CleanUp
+        try {
+            companyDao.delete(company1);
+            companyDao.delete(company2);
+            companyDao.delete(company3);
         } catch (Exception e) {
             //do nothing
         }
