@@ -1,0 +1,11 @@
+{
+    "carname": "BMW",
+    "make": "BMW",
+    "seats": [
+        {"material": "leather", "color": "black"},
+        {"material": "fabric", "color": "black"},
+        {"material": "leather", "color": "black"},
+        {"material": "fabric", "color": "black"}
+    ],
+    "engine": 2.0
+}
